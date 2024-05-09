@@ -1,2 +1,2 @@
 yum clean all
-yum update
+yum -y update
