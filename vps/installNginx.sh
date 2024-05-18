@@ -1,16 +1,22 @@
-# ÏÂÔØ
-mkdir -p /home/soft
-cd /home/soft
-wget http://nginx.org/download/nginx-1.23.0.tar.gz
+# å…ˆæ›´æ–°ç³»ç»Ÿ
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)
 
-# °²×°
+#è®¾ç½®æ ¹ç›®å½•
+rootPath=/home/soft/nginx
+
+# ä¸‹è½½
+mkdir -p $rootPath
+wget -P $rootPath http://nginx.org/download/nginx-1.23.0.tar.gz
+
+# å®‰è£…
+cd $rootPath
 tar -xzf nginx-1.23.0.tar.gz
-cd nginx-1.23.0
+cd $rootPath/nginx-1.23.0
 ./configure --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-stream
 make
 make install
 
-echo "°²×°nginxÎª·şÎñ"
+echo "å®‰è£…nginxä¸ºæœåŠ¡"
 echo "[Unit]
 Description=nginx service
 After=network.target
@@ -23,13 +29,17 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target" >> /usr/lib/systemd/system/nginx.service
 
-# ¿ª»ú×ÔÆô
+# å¼€æœºè‡ªå¯
 systemctl enable nginx.service
 
-# ÉèÖÃÏµÍ³±äÁ¿
+# è®¾ç½®ç³»ç»Ÿå˜é‡
 echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
 source /etc/profile
 
-# Æô¶¯
+# å¯åŠ¨
 cd /usr/local/nginx/sbin
 ./nginx
+
+# è¾“å‡ºä¿¡æ¯
+echo "nginxä¸‹è½½åœ¨$rootPath"
+echo "nginxå¯åŠ¨æ–‡ä»¶æ˜¯/usr/lib/systemd/system/nginx.service"
