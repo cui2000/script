@@ -65,20 +65,21 @@ if [ "running" = "$isRunning" ]; then
     # 创建一个ipset
     # type选项中的hash:net对应的是ipv4的网络环境
     # 要创建用于IPv6的IP集，请添加--option = family = inet6选项
-    firewall-cmd --permanent --zone=public --new-ipset=$ipsetName --type=hash:net
-    firewall-cmd --permanent --zone=public --add-rich-rule="rule family='ipv4' source ipset=blacklist drop"
-    firewall-cmd --reload
-  else
-    # 统计超过10次登录失败的ip并写入文件
-    setBlackList
-    echo "更新黑名单"
-    # 使用--add-entries-from-file选项将$ipBlack的内容导入到$ipsetName的ipset空间中
-    firewall-cmd --permanent --ipset=$ipsetName --add-entries-from-file=$ipBlack
-    firewall-cmd --reload
+    firewall-cmd --permanent --new-ipset=$ipsetName --type=hash:net
+    # 在drop区域中定义一条源规则，将$ipsetName的地址集作为源规则的源IP
+    firewall-cmd --permanent --zone=drop --add-source=ipset:$ipsetName
+    #firewall-cmd --permanent --zone=public --add-rich-rule="rule family='ipv4' source ipset=blacklist drop"
+    #firewall-cmd --reload
   fi
+  # 统计超过10次登录失败的ip并写入文件
+  setBlackList
+  echo "更新黑名单"
+  # 使用--add-entries-from-file选项将$ipBlack的内容导入到$ipsetName的ipset空间中
+  firewall-cmd --permanent --ipset=$ipsetName --add-entries-from-file=$ipBlack
+  firewall-cmd --reload
+
+  # 创建定时任务
+  addCrontab
 else
   echo "firewalld服务未启动，自动添加黑名单功能安装失败"
 fi
-
-# 创建定时任务
-addCrontab
