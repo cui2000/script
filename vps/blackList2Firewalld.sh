@@ -1,5 +1,5 @@
 #! /bin/bash
-# 此脚本用于firewalld服务
+# 此脚本用于firewalld服务，自动将超过10次失败的ip放入黑名单
 
 # 创建黑名单文件
 ipAccess="/home/ipAccess.list"
