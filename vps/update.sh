@@ -4,7 +4,7 @@ select opt in "是" "否"; do
   "是")
     #yum clean all
     yum -y update
-    yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd netstat
+    yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools
     break
     ;;
   "否")
