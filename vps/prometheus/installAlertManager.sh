@@ -42,7 +42,8 @@ systemctl enable alertmanager.service
 systemctl start alertmanager
 # 判断是否启动成功
 if [ -z "$(ps aux | grep alertmanager | grep -v grep)" ]; then
-  echo "启动失败"
+  echo "启动alertmanager失败"
 else
-  echo "启动成功"
+  echo "启动alertmanager成功"
+  echo "alertmanager需要开放9093端口，请访问http://ip:9093"
 fi

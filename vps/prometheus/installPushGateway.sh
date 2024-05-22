@@ -42,7 +42,8 @@ systemctl enable pushgateway.service
 systemctl start pushgateway
 # 判断是否启动成功
 if [ -z "$(ps aux | grep pushgateway | grep -v grep)" ]; then
-  echo "启动失败"
+  echo "启动pushgateway失败"
 else
-  echo "启动成功"
+  echo "启动pushgateway成功"
+  echo "pushgateway需要开放9091端口，请访问http://ip:9091"
 fi

@@ -42,7 +42,8 @@ systemctl enable node_exporter.service
 systemctl start node_exporter
 # 判断是否启动成功
 if [ -z "$(ps aux | grep node_exporter | grep -v grep)" ]; then
-  echo "启动失败"
+  echo "启动node_exporter失败"
 else
-  echo "启动成功"
+  echo "启动node_exporter成功"
+  echo "node_exporter需要开放9100端口，请访问http://ip:9100"
 fi
