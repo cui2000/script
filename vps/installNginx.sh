@@ -1,10 +1,14 @@
+#! /bin/bash
+# 此脚本用于安装nginx服务
+
 # 先更新系统
-bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)
+eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)"
 
 #设置根目录
 rootPath=/home/soft/nginx
 
 # 下载
+echo "下载目录：$rootPath"
 mkdir -p $rootPath
 wget -P $rootPath http://nginx.org/download/nginx-1.23.0.tar.gz
 
@@ -24,21 +28,24 @@ After=network.target
 [Service]
 Type=forking
 ExecStart=/usr/local/nginx/sbin/nginx
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
 PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target" >> /usr/lib/systemd/system/nginx.service
 
+#刷新
+systemctl daemon-reload
+
 # 开机自启
 systemctl enable nginx.service
+
+# 启动
+systemctl start nginx
 
 # 设置系统变量
 echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
 source /etc/profile
-
-# 启动
-cd /usr/local/nginx/sbin
-./nginx
 
 # 输出信息
 echo "nginx下载在$rootPath"
