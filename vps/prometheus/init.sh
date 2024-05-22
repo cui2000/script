@@ -1,11 +1,11 @@
 #! /bin/bash
 # 此脚本用于初始化prometheus服务的用户和组
 
-needInit="1"
-if [ ! -z "$1" ]; then
-  needInit="$1"
+needInit="$1"
+if [ -z "$needInit" ]; then
+  needInit="1"
 fi
-if [ $needInit != "0" ]; then
+if [ $needInit = "1" ]; then
   # 升级系统
   eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)"
 
