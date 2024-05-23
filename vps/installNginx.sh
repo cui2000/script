@@ -1,10 +1,19 @@
 #! /bin/bash
 # 此脚本用于安装nginx服务
 
+# 脚本目录及配置文件
+script_file="/home/soft/script/config.sh"
+
 # 先更新系统
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)"
 
-#设置根目录
+isInstall=$(sh "$script_file" "get" "installNginx")
+if [ "$isInstall" = "1" ]; then
+  echo "nginx已安装"
+  exit 0
+fi
+
+# 设置根目录
 rootPath=/home/soft/nginx
 
 # 下载
@@ -50,3 +59,6 @@ source /etc/profile
 # 输出信息
 echo "nginx下载在$rootPath"
 echo "nginx启动文件是/usr/lib/systemd/system/nginx.service"
+
+# 记录配置
+sh "$script_file" "set" "installNginx" "1"
