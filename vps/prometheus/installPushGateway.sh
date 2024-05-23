@@ -1,11 +1,17 @@
 #! /bin/bash
 # 此脚本用于安装prometheus的node_exporter
 
-# 查看SELinux模式，如果是enforcing，在运行中会因为权限出问题
-eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/checkSestatus.sh)"
+# 脚本目录及配置文件
+script_file="/home/soft/script/config.sh"
 
 # 初始化
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh)"
+
+isInstall=$(sh "$script_file" "get" "installPushGateway")
+if [ "$isInstall" = "1" ]; then
+  echo "pushgateway已安装"
+  return 0
+fi
 
 # 设置根目录
 rootPath=/home/soft/prometheus/module
@@ -50,3 +56,6 @@ else
   echo "启动pushgateway成功"
   echo "pushgateway需要开放9091端口，请访问http://ip:9091"
 fi
+
+# 记录配置
+sh "$script_file" "set" "installPushGateway" "1"
