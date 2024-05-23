@@ -1,11 +1,18 @@
 #! /bin/bash
 # 此脚本用于安装prometheus的node_exporter
 
-# 查看SELinux模式，如果是enforcing，在运行中会因为权限出问题
-eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/checkSestatus.sh)"
+# 脚本目录及配置文件
+script_file="/home/soft/script/config.sh"
 
 # 初始化
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh)"
+
+isInstall=$(sh "$script_file" "get" "installNodeExporter")
+if [ "$isInstall" = "1" ]; then
+  echo "node exporter已安装"
+  exit 0
+fi
+
 
 # 设置根目录
 rootPath=/home/soft/prometheus/module
@@ -50,3 +57,6 @@ else
   echo "启动node_exporter成功"
   echo "node_exporter需要开放9100端口，请访问http://ip:9100"
 fi
+
+# 记录配置
+sh "$script_file" "set" "installNodeExporter" "1"
