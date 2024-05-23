@@ -1,6 +1,9 @@
 #! /bin/bash
 # 此脚本用于安装prometheus的node_exporter
 
+# 查看SELinux模式，如果是enforcing，在运行中会因为权限出问题
+eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/checkSestatus.sh)"
+
 # 初始化
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh)"
 
