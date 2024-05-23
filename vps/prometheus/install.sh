@@ -11,7 +11,7 @@ eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/promet
 isInstall=$(sh "$script_file" "get" "installPrometheus")
 if [ "$isInstall" = "1" ]; then
   echo "prometheus已安装"
-  return 0
+  exit 0
 fi
 
 #设置根目录
@@ -20,7 +20,7 @@ rootPath=/home/soft/prometheus
 # 下载
 echo "下载prometheus，下载目录：$rootPath"
 mkdir -p $rootPath
-wget -qP $rootPath https://github.com/prometheus/prometheus/releases/download/v2.45.5/prometheus-2.45.5.linux-amd64.tar.gz
+wget -P $rootPath https://github.com/prometheus/prometheus/releases/download/v2.45.5/prometheus-2.45.5.linux-amd64.tar.gz
 
 # 安装
 echo "解压prometheus"

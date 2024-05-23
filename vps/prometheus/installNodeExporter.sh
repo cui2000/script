@@ -19,7 +19,7 @@ rootPath=/home/soft/prometheus/module
 
 # 下载
 echo "下载node_exporter，下载目录：$rootPath"
-wget -qP $rootPath https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64.tar.gz
+wget -P $rootPath https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64.tar.gz
 
 # 安装
 echo "解压node_exporter"

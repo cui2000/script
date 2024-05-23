@@ -13,7 +13,7 @@ eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update
 isInstall=$(sh "$script_file" "get" "installGrafana")
 if [ "$isInstall" = "1" ]; then
   echo "grafana已安装"
-  return 0
+  exit 0
 fi
 
 # 创建用户
@@ -25,7 +25,7 @@ mkdir -p $rootPath
 
 # 下载
 echo "下载grafana，下载目录：$rootPath"
-wget -qP $rootPath https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.linux-amd64.tar.gz
+wget -P $rootPath https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.linux-amd64.tar.gz
 
 # 安装
 echo "解压grafana到$rootPath"
