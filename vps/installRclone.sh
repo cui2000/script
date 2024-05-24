@@ -13,7 +13,6 @@ if [ -z "$hasRclone" ]; then
   mkdir -p $cacheDir
   cd $rootDir
   version=rclone-v1.66.0-linux-amd64
-#  eval "$(curl -sSL https://rclone.org/install.sh)"
   wget -O $version.zip https://github.com/rclone/rclone/releases/download/v1.66.0/$version.zip
   unzip $version.zip
 
