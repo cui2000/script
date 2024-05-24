@@ -37,6 +37,7 @@ User=prometheus
 Group=prometheus
 WorkingDirectory=$homePath
 ExecStart=$homePath/alertmanager
+ExecStartPre=cd $homePath
 Restart=on-failure
 
 [Install]

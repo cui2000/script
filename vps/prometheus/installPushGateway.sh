@@ -37,6 +37,7 @@ User=prometheus
 Group=prometheus
 WorkingDirectory=$homePath
 ExecStart=$homePath/pushgateway
+ExecStartPre=cd $homePath
 Restart=on-failure
 
 [Install]

@@ -44,6 +44,7 @@ ExecStart=$programPath/prometheus \\
   --config.file=$programPath/prometheus.yml \\
   --storage.tsdb.path=$programPath/data \\
   --web.enable-lifecycle
+ExecStartPre=cd $programPath
 Restart=on-failure
 
 [Install]
