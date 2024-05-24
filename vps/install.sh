@@ -84,15 +84,7 @@ while [ true ]; do
       break
       ;;
     "安装docker")
-      hasDocker=$(systemctl list-unit-files | grep docker)
-      if [ -z "$hasDocker" ]; then
-        filePath=$script_path/get-docker.sh
-        curl -fsSL https://get.docker.com -o $filePath --create-dirs && sh $filePath
-      else
-        echo "docker已安装"
-      fi
-      systemctl enable docker.service
-      systemctl start docker
+      run "installDocker.sh"
       break
       ;;
     "设置bbr和fastopen")
