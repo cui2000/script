@@ -46,7 +46,6 @@ function run() {
   fileName="$1"
   filePath="$script_path/$fileName"
   urlPath="$SCRIPT_URL/$fileName"
-#  echo "$urlPath"
   getScript "$filePath" "$urlPath"
   sh "$filePath"
 }
@@ -56,9 +55,9 @@ init
 # 安装应用
 while [ true ]; do
   echo "请选择："
-  select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装nginx" \
+  select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装docker" "安装nginx" \
     "安装Prometheus" "安装node exporter" "安装Grafana" \
-    "退出"; do
+    "设置bbr和fastopen" "升级系统内核" "退出"; do
     case $opt in
     "设置虚拟内存")
       run "setSwap.sh"
@@ -82,6 +81,27 @@ while [ true ]; do
       ;;
     "安装Grafana")
       run "prometheus/installGrafana.sh"
+      break
+      ;;
+    "安装docker")
+      hasDocker=$(systemctl list-unit-files | grep docker)
+      if [ -z "$hasDocker" ]; then
+        filePath=$script_path/get-docker.sh
+        curl -fsSL https://get.docker.com -o $filePath --create-dirs && sh $filePath
+      else
+        echo "docker已安装"
+      fi
+      systemctl enable docker.service
+      systemctl start docker
+      break
+      ;;
+    "设置bbr和fastopen")
+      run "setTcpConf.sh"
+      break
+      ;;
+    "升级系统内核")
+      echo "升级系统内核会重启，重启后通过uname -r查看是否升级成功"
+      run "updateKernel.sh"
       break
       ;;
     "退出")
