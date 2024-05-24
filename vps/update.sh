@@ -1,10 +1,37 @@
 #! /bin/bash
 # 此脚本用于更新系统并安装必备应用
 
+function enableSSSD() {
+  # 如果没有配置文件
+  if [ -f "/etc/sssd/sssd.conf" ]; then
+    echo "[sssd]
+services = nss, pam
+domains = shadowutils
+
+[nss]
+
+[pam]
+
+[domain/shadowutils]
+id_provider = proxy
+proxy_lib_name = files
+
+auth_provider = proxy
+proxy_pam_target = sssd-shadowutils
+
+proxy_fast_alias = True" >/etc/sssd/sssd.conf
+    chmod 600 /etc/sssd/sssd.conf
+  fi
+  systemctl enable sssd.service
+  systemctl start sssd
+}
+
 function update() {
   yum clean all
   yum -y update
-  yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie unzip
+  yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie unzip fuse
+  # sssd服务
+  enableSSSD
   # 定时任务服务
   systemctl start crond
   systemctl enable crond
