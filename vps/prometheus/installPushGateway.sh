@@ -49,6 +49,8 @@ systemctl daemon-reload
 systemctl enable pushgateway.service
 # 启动
 systemctl start pushgateway
+# 等待启动
+sleep 2
 # 判断是否启动成功
 if [ -z "$(ps aux | grep pushgateway | grep -v grep)" ]; then
   echo "启动pushgateway失败"

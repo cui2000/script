@@ -62,6 +62,8 @@ systemctl daemon-reload
 systemctl enable grafana.service
 # 启动
 systemctl start grafana
+# 等待启动
+sleep 2
 #isStart=0
 #startCount=0
 ## 尝试10次

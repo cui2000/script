@@ -56,6 +56,8 @@ systemctl daemon-reload
 systemctl enable prometheus.service
 # 启动
 systemctl start prometheus
+# 等待启动
+sleep 2
 # 安装组件
 if [ -z "$(ps aux | grep prometheus | grep -v grep)" ]; then
   echo "启动prometheus失败"

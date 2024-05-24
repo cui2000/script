@@ -41,7 +41,7 @@ ExecStop=/usr/local/nginx/sbin/nginx -s stop
 PrivateTmp=true
 
 [Install]
-WantedBy=multi-user.target" >> /usr/lib/systemd/system/nginx.service
+WantedBy=multi-user.target" >/usr/lib/systemd/system/nginx.service
 
 #刷新
 systemctl daemon-reload
@@ -51,9 +51,18 @@ systemctl enable nginx.service
 
 # 启动
 systemctl start nginx
+# 等待启动
+sleep 2
+# 判断是否启动成功
+if [ -z "$(ps aux | grep nginx | grep -v grep)" ]; then
+  echo "启动nginx失败"
+else
+  echo "启动nginx成功"
+  echo "nginx需要开放80端口，请访问http://ip"
+fi
 
 # 设置系统变量
-echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
+echo "export PATH=$PATH:/usr/local/nginx/sbin" >>/etc/profile
 source /etc/profile
 
 # 输出信息

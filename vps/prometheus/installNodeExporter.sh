@@ -50,6 +50,8 @@ systemctl daemon-reload
 systemctl enable node_exporter.service
 # 启动
 systemctl start node_exporter
+# 等待启动
+sleep 2
 # 判断是否启动成功
 if [ -z "$(ps aux | grep node_exporter | grep -v grep)" ]; then
   echo "启动node_exporter失败"
