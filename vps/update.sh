@@ -4,7 +4,10 @@
 function update() {
   yum clean all
   yum -y update
-  yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools
+  yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie
+  # 定时任务服务
+  systemctl start crond
+  systemctl enable crond
 }
 
 # 脚本目录及配置文件
