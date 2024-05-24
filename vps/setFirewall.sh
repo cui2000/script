@@ -48,21 +48,3 @@ while [ true ]; do
     showPorts
   fi
 done
-
-#!/bin/bash
-
-## 定义包含空格的字符串
-#my_string="apple banana cherry"
-#
-## 使用IFS变量设置分隔符为空格
-#IFS=' '
-#
-## 使用for循环遍历被空格分割的字符串
-#for item in $my_string; do
-#    echo "当前项: $item"
-#    # 在这里你可以执行其他命令，比如：
-#    # your_command "$item"
-#done
-#
-## 恢复IFS的默认值（通常是换行符和空格等）
-#unset IFS
