@@ -43,6 +43,8 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target" >/usr/lib/systemd/system/pushgateway.service
 
+# 修改目录属主
+chown -R prometheus:prometheus /home/soft/prometheus
 echo "启动pushgateway..."
 #刷新
 systemctl daemon-reload

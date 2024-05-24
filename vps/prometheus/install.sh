@@ -24,7 +24,6 @@ wget -P $rootPath https://github.com/prometheus/prometheus/releases/download/v2.
 
 # 安装
 echo "解压prometheus"
-cd $rootPath
 tar -zxf $rootPath/prometheus-2.45.5.linux-amd64.tar.gz -C $rootPath
 
 # 启动
@@ -50,6 +49,8 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target" >/usr/lib/systemd/system/prometheus.service
 
+# 修改目录属主
+chown -R prometheus:prometheus /home/soft/prometheus
 echo "启动prometheus..."
 #刷新
 systemctl daemon-reload
