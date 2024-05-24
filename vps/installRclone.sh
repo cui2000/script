@@ -11,6 +11,9 @@ if [ -z "$hasRclone" ]; then
   mkdir -p $confDir
   mkdir -p $dataDir
   mkdir -p $cacheDir
+  # 建立配置文件
+  touch $confDir/rclone.conf
+  # 下载安装
   cd $rootDir
   version=rclone-v1.66.0-linux-amd64
   wget -O $version.zip https://github.com/rclone/rclone/releases/download/v1.66.0/$version.zip
