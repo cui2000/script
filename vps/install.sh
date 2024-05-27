@@ -103,6 +103,10 @@ while [ true ]; do
       run "updateKernel.sh"
       break
       ;;
+    "设置ssl证书")
+      run "setCertificate.sh"
+      break
+      ;;
     "退出")
       exit 0
       break
