@@ -24,7 +24,6 @@ while [ true ]; do
       break
       ;;
     "显示端口")
-      #    showPorts
       break
       ;;
     "退出")

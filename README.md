@@ -48,3 +48,11 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setTcpC
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/updateKernel.sh)
 ```
+**设置防火墙端口**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setFirewall.sh)
+```
+**生成ssl证书**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setCertificate.sh)
+```
