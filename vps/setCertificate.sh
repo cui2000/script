@@ -25,7 +25,7 @@ function setCertificate() {
   chmod -R 750 $certPath
   # 切换用户
   su -l -s /bin/bash acme -c "curl  https://get.acme.sh | sh -s email=$email"
-  echo -e "请新打开终端执行以下指令："
+  echo -e "\033[31m请新打开终端执行以下指令：\033[0m"
   echo "su -l -s /bin/bash acme"
   echo "export CF_Key=$apiKey"
   echo "export CF_Email=$email"

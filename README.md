@@ -56,3 +56,11 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setFire
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setCertificate.sh)
 ```
+**安装trojan-go**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installTrojanGo.sh)
+```
+**部署bash-tutorial**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/deployBashTutorial.sh)
+```
