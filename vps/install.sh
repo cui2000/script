@@ -55,7 +55,7 @@ init
 # 安装应用
 while [ true ]; do
   echo "请选择："
-  select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装docker" "安装nginx" \
+  select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装docker" "安装docker compose" "安装nginx" \
     "安装Prometheus" "安装node exporter" "安装Grafana" \
     "安装plex" "安装rclone" "设置bbr和fastopen" "升级系统内核" \
     "设置ssl证书" "安装trojan-go" "部署bash-tutorial" "退出"; do
@@ -86,6 +86,10 @@ while [ true ]; do
       ;;
     "安装docker")
       run "installDocker.sh"
+      break
+      ;;
+    "安装docker compose")
+      run "installDockerCompose.sh"
       break
       ;;
     "安装plex")
