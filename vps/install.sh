@@ -57,7 +57,7 @@ while [ true ]; do
   echo "请选择："
   select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装docker" "安装nginx" \
     "安装Prometheus" "安装node exporter" "安装Grafana" \
-    "安装plex" "安装rclone" "设置bbr和fastopen" "升级系统内核" "退出"; do
+    "安装plex" "安装rclone" "设置bbr和fastopen" "升级系统内核" "设置ssl证书" "退出"; do
     case $opt in
     "设置虚拟内存")
       run "setSwap.sh"
