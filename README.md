@@ -40,6 +40,10 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometh
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installDocker.sh)
 ```
+**安装docker compose**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installDockerCompose.sh)
+```
 **设置tcp参数**  
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setTcpConf.sh)

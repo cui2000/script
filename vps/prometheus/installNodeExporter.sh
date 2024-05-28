@@ -61,6 +61,20 @@ if [ -z "$(ps aux | grep node_exporter | grep -v grep)" ]; then
 else
   echo "启动node_exporter成功"
   echo "node_exporter需要开放9100端口，请访问http://ip:9100"
+  echo "如果想注册到consul以使用自动发现服务，请执行："
+  echo "curl -X PUT -d '{
+    \"ID\": \"node_exporter-instance-1\",
+    \"Name\": \"node-exporter\",
+    \"Address\": \"node_exporter_ip\",
+    \"Port\": 9100,
+    \"Tags\": [\"monitoring\"],
+    \"Checks\": [
+        {
+            \"HTTP\": \"http://node_exporter_ip:9100/metrics\",
+            \"Interval\": \"10s\"
+        }
+    ]
+}' http://consulIp:8500/v1/agent/service/register"
 fi
 
 # 记录配置
