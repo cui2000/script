@@ -52,10 +52,9 @@ systemctl daemon-reload
 systemctl enable alertmanager.service
 # 启动
 systemctl start alertmanager
-# 等待启动
-sleep 2
 # 判断是否启动成功
-if [ -z "$(ps aux | grep alertmanager | grep -v grep)" ]; then
+isStart=$(ps aux | grep alertmanager | grep -v grep)
+if [ -z "$isStart" ]; then
   echo "启动alertmanager失败"
 else
   echo "启动alertmanager成功"

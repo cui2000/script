@@ -63,29 +63,8 @@ systemctl enable grafana.service
 # 启动
 systemctl start grafana
 # 等待启动
-sleep 2
-#isStart=0
-#startCount=0
-## 尝试10次
-#while [ $isStart = 0 ] && [ $startCount -lt 10 ]; do
-#  # 判断是否启动成功
-#  if [ -z "$(ps aux | grep grafana | grep -v grep)" ]; then
-#    # 如果第一次启动失败
-#    if [ $startCount -gt 0 ]; then
-#      # 通过服务启动可能会因为SELinux失败
-#      # 不采用直接关闭SELinux的方式，需要多次执行
-#      ausearch -c '(grafana)' --raw | audit2allow -M my-grafana
-#      semodule -X 300 -i my-grafana.pp
-#      echo "第$startCount次重试"
-#    fi
-#    systemctl start grafana
-#    let startCount=$((startCount + 1))
-#  else
-#    let isStart=1
-#  fi
-#done
-#if [ $isStart = 0 ]; then
-if [ -z "$(ps aux | grep grafana | grep -v grep)" ]; then
+isStart=$(ps aux | grep grafana | grep -v grep)
+if [ -z "$isStart" ]; then
   echo "启动grafana失败"
 else
   echo "启动grafana成功"
