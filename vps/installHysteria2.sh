@@ -69,8 +69,14 @@ rm -f /etc/systemd/system/hysteria-server@.service
 # 防火墙转发
 firewallStarted=$(ps aux | grep firewalld | grep -v grep)
 if [ ! -z "$firewallStarted" ]; then
+#  echo -n "开启udp的443端口："
+#  firewall-cmd --permanent --zone=public --add-port=443/udp
+  # 开启转发
+  echo -n "开启IP伪装（也就是端口转发）："
   firewall-cmd --permanent --zone=public --add-masquerade
+  echo -n "转发20000-30000端口到443："
   firewall-cmd --permanent --zone=public --add-forward-port=port=20000-30000:proto=udp:toport=443
+  echo -n "刷新防火墙："
   firewall-cmd --reload
 fi
 
