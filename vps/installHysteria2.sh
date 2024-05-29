@@ -66,5 +66,12 @@ fi
 sed -i "s/Group=.*/Group=certusers/g" /etc/systemd/system/hysteria-server.service
 rm -f /etc/systemd/system/hysteria-server@.service
 
-echo "systemctl start hysteria-server运行后会在/home/hysteria中生成证书"
+# 防火墙转发
+firewallStarted=$(ps aux | grep firewalld | grep -v grep)
+if [ ! -z "$firewallStarted" ]; then
+  firewall-cmd --permanent --zone=public --add-masquerade
+  firewall-cmd --permanent --zone=public --add-forward-port=port=20000-30000:proto=udp:toport=443
+  firewall-cmd --reload
+fi
 
+echo "systemctl start hysteria-server运行后会在/home/hysteria中生成证书"
