@@ -58,7 +58,7 @@ while [ true ]; do
   select opt in "设置虚拟内存" "防火墙自动添加黑名单" "安装docker" "安装docker compose" "安装nginx" \
     "安装Prometheus" "安装node exporter" "安装Grafana" \
     "安装plex" "安装rclone" "设置bbr和fastopen" "升级系统内核" \
-    "设置ssl证书" "安装trojan-go" "部署bash-tutorial" "退出"; do
+    "设置ssl证书" "安装trojan-go" "安装hysteria2" "部署bash-tutorial" "退出"; do
     case $opt in
     "设置虚拟内存")
       run "setSwap.sh"
@@ -116,6 +116,11 @@ while [ true ]; do
       run "installTrojanGo.sh"
       break
       ;;
+    "安装hysteria2")
+      run "installHysteria2.sh"
+      break
+      ;;
+
     "部署bash-tutorial")
       run "deployBashTutorial.sh"
       break
