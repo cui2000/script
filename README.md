@@ -64,6 +64,10 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/setCert
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installTrojanGo.sh)
 ```
+**安装hysteria2**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installHysteria2.sh)
+```
 **部署bash-tutorial**  
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/deployBashTutorial.sh)
