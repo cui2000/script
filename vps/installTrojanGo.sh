@@ -70,7 +70,7 @@ function addCrontab() {
   if [ -z "$hasCrontab" ]; then
     echo "创建定时任务，每周五执行"
     # 添加定时任务，每周五执行
-    getGeoData="0 0 * * 5 sh $updateSh"
+    getGeoData="0 0 * * 5 bash $updateSh"
     # 添加新的计划任务到crontab
     (
       crontab -l

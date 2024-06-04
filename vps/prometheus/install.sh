@@ -8,7 +8,7 @@ script_file="/home/soft/script/config.sh"
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh)"
 #curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh | bash -s "1"
 
-isInstall=$(sh "$script_file" "get" "installPrometheus")
+isInstall=$(bash "$script_file" "get" "installPrometheus")
 if [ "$isInstall" = "1" ]; then
   echo "prometheus已安装"
   exit 0
@@ -66,7 +66,7 @@ else
   echo "启动prometheus成功"
   echo "prometheus需要开放9090端口，请访问http://ip:9090"
   # 记录配置
-  sh "$script_file" "set" "installPrometheus" "1"
+  bash "$script_file" "set" "installPrometheus" "1"
   # 安装组件
   echo -n "是否要安装node_exporter，altermanager，pushgateway组件？是（输入1），否（任意输入）："
   read isInstall

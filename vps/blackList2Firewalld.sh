@@ -65,7 +65,7 @@ function addCrontab() {
     echo "创建定时任务，10分钟执行一次：$script_path"
     chmod +x $script_path
     # 添加定时任务，10分钟一次
-    deny="*/10 * * * * sh $script_path"
+    deny="*/10 * * * * bash $script_path"
     # 添加新的计划任务到crontab
     (
       crontab -l

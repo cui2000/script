@@ -7,7 +7,7 @@ script_file="/home/soft/script/config.sh"
 # 初始化
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/prometheus/init.sh)"
 
-isInstall=$(sh "$script_file" "get" "installNodeExporter")
+isInstall=$(bash "$script_file" "get" "installNodeExporter")
 if [ "$isInstall" = "1" ]; then
   echo "node exporter已安装"
   exit 0
@@ -77,4 +77,4 @@ else
 fi
 
 # 记录配置
-sh "$script_file" "set" "installNodeExporter" "1"
+bash "$script_file" "set" "installNodeExporter" "1"

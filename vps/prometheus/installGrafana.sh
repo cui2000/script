@@ -10,7 +10,7 @@ eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/checkS
 # 更新系统
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)"
 
-isInstall=$(sh "$script_file" "get" "installGrafana")
+isInstall=$(bash "$script_file" "get" "installGrafana")
 if [ "$isInstall" = "1" ]; then
   echo "grafana已安装"
   exit 0
@@ -72,7 +72,7 @@ else
 fi
 
 # 记录配置
-sh "$script_file" "set" "installGrafana" "1"
+bash "$script_file" "set" "installGrafana" "1"
 
 ## 不然在无权限的目录启动会报错
 #cd $grafanaHomePath

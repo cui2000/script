@@ -68,8 +68,8 @@ if [ ! -f "$script_file" ]; then
   fi
 fi
 
-isUpdate=$(sh "$script_file" "get" "isUpdate")
+isUpdate=$(bash "$script_file" "get" "isUpdate")
 if [ "$isUpdate" != "1" ]; then
   update
-  sh "$script_file" "set" "isUpdate" "1"
+  bash "$script_file" "set" "isUpdate" "1"
 fi

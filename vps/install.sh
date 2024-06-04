@@ -19,7 +19,7 @@ function init() {
     # 检查下载是否成功
     if [ $? -eq 0 ]; then
       # 执行下载的脚本
-      sh "$script_file"
+      bash "$script_file"
     else
       echo "Failed to download script from $urlPath"
       exit 0
@@ -47,7 +47,7 @@ function run() {
   filePath="$script_path/$fileName"
   urlPath="$SCRIPT_URL/$fileName"
   getScript "$filePath" "$urlPath"
-  sh "$filePath"
+  bash "$filePath"
 }
 # 初始化配置
 init

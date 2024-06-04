@@ -4,7 +4,7 @@
 hasDocker=$(systemctl list-unit-files | grep docker)
 if [ -z "$hasDocker" ]; then
   filePath=$script_path/get-docker.sh
-  curl -fsSL https://get.docker.com -o $filePath --create-dirs && sh $filePath
+  curl -fsSL https://get.docker.com -o $filePath --create-dirs && bash $filePath
 else
   echo "docker已安装"
 fi

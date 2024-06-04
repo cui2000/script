@@ -24,7 +24,7 @@ function setCertificate() {
   chown -R acme:certusers $certPath
   chmod -R 750 $certPath
   # 切换用户
-  su -l -s /bin/bash acme -c "curl  https://get.acme.sh | sh -s email=$email"
+  su -l -s /bin/bash acme -c "curl  https://get.acme.sh | bash -s email=$email"
   echo -e "\033[31m请新打开终端执行以下指令：\033[0m"
   echo "su -l -s /bin/bash acme"
   echo "export CF_Key=$apiKey"

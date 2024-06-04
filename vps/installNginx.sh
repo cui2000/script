@@ -7,7 +7,7 @@ script_file="/home/soft/script/config.sh"
 # 先更新系统
 eval "$(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/update.sh)"
 
-isInstall=$(sh "$script_file" "get" "installNginx")
+isInstall=$(bash "$script_file" "get" "installNginx")
 if [ "$isInstall" = "1" ]; then
   echo "nginx已安装"
   exit 0
@@ -70,4 +70,4 @@ echo "nginx下载在$rootPath"
 echo "nginx启动文件是/usr/lib/systemd/system/nginx.service"
 
 # 记录配置
-sh "$script_file" "set" "installNginx" "1"
+bash "$script_file" "set" "installNginx" "1"

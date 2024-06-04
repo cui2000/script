@@ -31,7 +31,8 @@ function setValue() {
 
 function getValue() {
   key="$1"
-  eval "cat $file_path | awk '/^$key/{print \$2}'"
+#  eval "cat $file_path | awk '/^$key/{print \$2}'"
+  awk -v k="$key" '$1 == k {print $2}' "$file_path"
 }
 init
 op="$1"
