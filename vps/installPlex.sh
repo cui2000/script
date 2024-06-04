@@ -1,6 +1,17 @@
 #! /bin/bash
 # 此脚本用于安装plex服务
 
+function enableService() {
+  # 开机启动
+  systemctl enable plexmediaserver.service
+  systemctl start plexmediaserver.service
+
+  # 提示
+  echo "第一次使用需要通过ssh转发端口，本地putty运行命令："
+  echo "ssh root@服务器IP -L 8888:localhost:32400"
+  echo "输入正确的密码后，再去浏览器里打开localhost:8888/web进入即可"
+}
+
 hasPlex=$(systemctl list-unit-files | grep plexmediaserver)
 if [ -z "$hasPlex" ]; then
   rootDir=/home/soft/plex
@@ -23,13 +34,25 @@ if [ -z "$hasPlex" ]; then
 
   rm -rf XBMCnfoMoviesImporter*
   rm -rf JAVnfoMoviesImporter*
+  # 开机启动
+  enableService
 else
-  echo "plex已安装"
+  echo "plex已安装，是否要卸载："
+  select opt in "是" "否"; do
+    case $opt in
+    "是")
+      systemctl stop plexmediaserver
+      systemctl disable plexmediaserver
+      yum -y remove plexmediaserver
+      rm -rf /var/lib/plexmediaserver
+      rm -rf /usr/share/doc/plexmediaserver
+      yum -y autoremove
+      break
+      ;;
+    "否")
+      enableService
+      break
+      ;;
+    esac
+  done
 fi
-# 开机启动
-systemctl enable plexmediaserver.service
-systemctl start plexmediaserver.service
-
-echo "第一次使用需要通过ssh转发端口，本地putty运行命令："
-echo "ssh root@服务器IP -L 8888:localhost:32400"
-echo "输入正确的密码后，再去浏览器里打开localhost:8888/web进入即可"
