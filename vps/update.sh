@@ -27,14 +27,29 @@ proxy_fast_alias = True" >/etc/sssd/sssd.conf
 }
 
 function update() {
-  yum clean all
-  yum -y update
-  yum -y install vim wget pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie unzip fuse
-  # sssd服务
-  enableSSSD
-  # 定时任务服务
-  systemctl start crond
-  systemctl enable crond
+  isCentOS=$(cat /etc/*-release | grep CentOS)
+  isDebian=$(cat /etc/*-release | grep Debian)
+  if [ ! -z "$isCentOS" ]; then
+    yum clean all
+    yum -y update
+    yum -y install vim wget curl pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie unzip fuse
+    # sssd服务
+    enableSSSD
+    # 定时任务服务
+    systemctl start crond
+    systemctl enable crond
+  elif [ ! -z "$isDebian" ]; then
+    # 升级
+    apt -y upgrade
+    # 安装必要软件包
+    apt -y install vim wget curl libpcre3 libpcre3-dev zlib1g zlib1g-dev gcc g++ build-essential openssl libssl-dev automake autoconf libtool make sssd net-tools socat unzip fuse
+    # 卸载不需要的软件包
+    apt -y autoremove
+  else
+    echo "暂时只支持CentOS和Debian"
+    exit 0
+  fi
+
 }
 
 # 脚本目录及配置文件
@@ -47,7 +62,7 @@ if [ ! -f "$script_file" ]; then
   # 检查下载是否成功
   if [ $? -eq 0 ]; then
     # 执行下载的脚本
-    sh "$script_file"
+    bash "$script_file"
   else
     echo "Failed to download script from $urlPath"
   fi
