@@ -38,7 +38,6 @@ User=prometheus
 Group=prometheus
 WorkingDirectory=$homePath
 ExecStart=$homePath/node_exporter
-ExecStartPre=cd $homePath
 Restart=on-failure
 
 [Install]

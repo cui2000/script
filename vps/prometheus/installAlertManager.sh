@@ -36,8 +36,7 @@ Type=simple
 User=prometheus
 Group=prometheus
 WorkingDirectory=$homePath
-ExecStart=$homePath/alertmanager
-ExecStartPre=cd $homePath
+ExecStart=$homePath/alertmanager --config.file=$homePath/alertmanager.yml
 Restart=on-failure
 
 [Install]

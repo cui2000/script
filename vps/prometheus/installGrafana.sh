@@ -49,7 +49,6 @@ User=grafana
 Group=grafana
 WorkingDirectory=$homePath
 ExecStart=$homePath/bin/grafana server --homepath=$homePath
-ExecStartPre=cd $homePath
 Restart=on-failure
 
 [Install]
