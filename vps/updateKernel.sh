@@ -11,6 +11,9 @@ function update() {
   is9=$(cat /etc/redhat-release | grep "CentOS .* 9")
   if [ ! -z "$is8" ]; then
     rpm_path="https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm"
+    # 使用其他镜像源
+    sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
   elif [ ! -z "$is9" ]; then
     rpm_path="https://www.elrepo.org/elrepo-release-9.el9.elrepo.noarch.rpm"
   else
