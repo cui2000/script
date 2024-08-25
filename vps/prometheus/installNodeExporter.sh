@@ -13,19 +13,32 @@ if [ "$isInstall" = "1" ]; then
   exit 0
 fi
 
+version=1.8.2
+arch=$(uname -m)
+dirName=""
+# 不是AMD
+if [ "$arch" = "x86_64" ]; then
+  dirName=node_exporter-$version.linux-amd64
+elif [ "$arch" = "aarch64" ]; then
+  dirName=node_exporter-$version.linux-arm64
+else
+  echo "只支持amd和arm"
+  exit 0
+fi
+downloadUrl="https://github.com/prometheus/node_exporter/releases/download/v$version/$dirName.tar.gz"
 
 # 设置根目录
 rootPath=/home/soft/prometheus/module
 
 # 下载
 echo "下载node_exporter，下载目录：$rootPath"
-wget -P $rootPath https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64.tar.gz
+wget -P $rootPath "https://github.com/prometheus/node_exporter/releases/download/v$version/$dirName.tar.gz"
 
 # 安装
 echo "解压node_exporter"
-tar -zxf $rootPath/node_exporter-1.8.0.linux-amd64.tar.gz -C $rootPath
+tar -zxf $rootPath/$dirName.tar.gz -C $rootPath
 
-homePath=$rootPath/node_exporter-1.8.0.linux-amd64
+homePath=$rootPath/$dirName
 echo "安装node_exporter为服务"
 echo "[Unit]
 Description=Node Exporter
