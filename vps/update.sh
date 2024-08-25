@@ -28,8 +28,9 @@ proxy_fast_alias = True" >/etc/sssd/sssd.conf
 
 function update() {
   isCentOS=$(cat /etc/*-release | grep CentOS)
+  isAlmaLinux=$(cat /etc/*-release | grep AlmaLinux)
   isDebian=$(cat /etc/*-release | grep Debian)
-  if [ ! -z "$isCentOS" ]; then
+  if [ ! -z "$isCentOS" ] || [ ! -z "$isAlmaLinux" ]; then
     yum clean all
     yum -y update
     yum -y install vim wget curl pcre pcre-devel zlib zlib-devel gcc gcc-c++ openssl openssl-devel automake autoconf libtool make sssd net-tools socat cronie unzip fuse
@@ -46,7 +47,7 @@ function update() {
     # 卸载不需要的软件包
     apt -y autoremove
   else
-    echo "暂时只支持CentOS和Debian"
+    echo "暂时只支持CentOS, AlmaLinux和Debian"
     exit 0
   fi
 
