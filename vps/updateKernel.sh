@@ -35,7 +35,7 @@ function update() {
   fi
   rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
   yum -y install $rpm_path
-  yum --enablerepo=elrepo-kernel install kernel-ml -y
+  yum --enablerepo=elrepo-kernel install kernel-ml kernel-ml-devel -y
   echo "安装内核完毕，重启"
   reboot
 }
