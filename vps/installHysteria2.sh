@@ -42,10 +42,10 @@ usermod -aG "$groupname" "$username"
 curl -fsSL https://get.hy2.sh/ | bash
 
 # 设置系统缓冲区大小，将发送、接收两个缓冲区都设置为 16 MB
-setOrReplaceConf "net.core.rmem_max" "16777216"
-setOrReplaceConf "net.core.wmem_max" "16777216"
-echo "内核信息："
-sysctl -p
+#setOrReplaceConf "net.core.rmem_max" "16777216"
+#setOrReplaceConf "net.core.wmem_max" "16777216"
+#echo "内核信息："
+#sysctl -p
 
 # 修改配置文件
 if [ -f "$conf" ]; then
