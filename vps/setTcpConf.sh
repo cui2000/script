@@ -70,11 +70,12 @@ if [ "$bbr" = "1" ]; then
   # 设置 TCP 窗口缩放因子的最大值。
   # 这个因子用于扩展 TCP 窗口大小，使得 TCP 可以支持超过 65,535 字节的窗口大小。
   # 窗口缩放因子是一个 0 到 14 的值，表示窗口大小的扩展倍数。
-  setOrReplace "net.ipv4.tcp_adv_win_scale" "-2"
+  #setOrReplace "net.ipv4.tcp_adv_win_scale" "-2"
+  setOrReplace "net.ipv4.tcp_adv_win_scale" "4"
   # 控制 TCP 协议在处理接收缓冲区时的最大字节数，它与 TCP 的接收缓冲区合并（collapse）机制有关，定义了在合并过程中，允许合并的最大字节数。
   # 当 TCP 接收缓冲区中有多个小的数据包到达时，内核可能会将这些小的数据包合并成一个更大的数据包，以提高处理效率和减少上下文切换的开销。
   # Cloudflare的补丁，需要自行安装，补丁地址：https://github.com/cloudflare/linux
-  setOrReplace "net.ipv4.tcp_collapse_max_bytes" "6291456"
+  #setOrReplace "net.ipv4.tcp_collapse_max_bytes" "6291456"
   # 定义了 TCP 套接字在发送缓冲区中未发送的数据的最小字节数。
   # 用于设置一个阈值，只有当发送缓冲区中的未发送数据量低于这个阈值时，TCP 才会尝试发送更多的数据。
   setOrReplace "net.ipv4.tcp_notsent_lowat" "131072"
