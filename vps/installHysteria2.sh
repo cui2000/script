@@ -80,4 +80,6 @@ if [ ! -z "$firewallStarted" ]; then
   firewall-cmd --reload
 fi
 
-echo "systemctl start hysteria-server运行后会在/home/hysteria中生成证书"
+echo "请修改$conf后启动"
+echo "开机自启：systemctl enable hysteria-server.service"
+echo "启动服务：systemctl start hysteria-server.service"
