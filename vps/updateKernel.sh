@@ -36,7 +36,17 @@ function update() {
   rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
   yum -y install $rpm_path
   yum --enablerepo=elrepo-kernel install kernel-ml kernel-ml-devel -y
-  echo "安装内核完毕，重启"
-  reboot
+  echo "安装内核完毕，是否重启："
+  select opt in "是" "否"; do
+    case $opt in
+      "是")
+        reboot
+        break
+        ;;
+      "否")
+        break
+        ;;
+    esac
+  done
 }
 update
