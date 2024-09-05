@@ -24,15 +24,13 @@ function setCertificate() {
   chown -R acme:certusers $certPath
   chmod -R 750 $certPath
   # 切换用户
-#  su -l -s /bin/bash acme -c "curl  https://get.acme.sh | bash -s email=$email"
+  su -l -s /bin/bash acme -c "curl  https://get.acme.sh | bash -s email=$email"
   echo -e "\033[31m请新打开终端执行以下指令：\033[0m"
   echo "su -l -s /bin/bash acme"
-  echo "curl https://get.acme.sh | bash -s email=$email \
-  && export CF_Key=$apiKey && export CF_Email=$email \
+  echo "export CF_Key=$apiKey && export CF_Email=$email \
   && acme.sh --issue --dns dns_cf -d $domain \
   && acme.sh --install-cert -d $domain --key-file $certPath/$domain.key --fullchain-file $certPath/$domain.crt \
   && exit"
-  echo "exit"
   echo -e "\033[31m证书生成成功后请执行以下命令，让certusers用户组其他成员也能访问证书\033[0m"
   echo "chown -R acme:certusers $certPath && chmod -R 750 $certPath"
 
