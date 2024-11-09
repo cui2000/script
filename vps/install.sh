@@ -30,14 +30,14 @@ function init() {
 function getScript() {
   script_file="$1"
   url_path="$2"
-  if [ ! -f "$script_file" ]; then
-    # 使用curl下载脚本到脚本目录
-    curl -o "$script_file" --create-dirs "$url_path"
-    # 检查下载是否成功
-    if [ ! $? -eq 0 ]; then
-      echo "Failed to download script from $urlPath"
-      exit 0
-    fi
+  #if [ ! -f "$script_file" ]; then
+  #fi
+  # 使用curl下载脚本到脚本目录
+  curl -o "$script_file" --create-dirs "$url_path"
+  # 检查下载是否成功
+  if [ ! $? -eq 0 ]; then
+    echo "Failed to download script from $urlPath"
+    exit 0
   fi
 }
 
