@@ -113,12 +113,14 @@ function installBlackList() {
     # type选项中的hash:net对应的是ipv4的网络环境
     # 要创建用于IPv6的IP集，请添加--option = family = inet6选项
     echo "创建ipset：$ipsetName 用于黑名单 "
-    firewall-cmd --permanent --new-ipset=$ipsetName --type=hash:net
+    #firewall-cmd --permanent --new-ipset=$ipsetName --type=hash:net
+    # 使用ipset命令创建
+    ipset create blacklist hash:net
     # 在drop区域中定义一条源规则，将$ipsetName的地址集作为源规则的源IP
     echo "将ipset：$ipsetName 添加到zone:drop "
     firewall-cmd --permanent --zone=drop --add-source=ipset:$ipsetName
     #firewall-cmd --permanent --zone=public --add-rich-rule="rule family='ipv4' source ipset=blacklist drop"
-    #firewall-cmd --reload
+    firewall-cmd --reload
   fi
   # 统计超过10次登录失败的ip并写入文件
   setBlackList
