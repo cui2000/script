@@ -106,9 +106,8 @@ function refreshBlackList() {
 }
 
 function installBlackList() {
-  # 如果没有则创建
-  hasBlackIpset=$(firewall-cmd --get-ipsets | grep $ipsetName)
-  if [ -z "$hasBlackIpset" ]; then
+  # 确保 ipset 存在
+  if ! ipset list "$ipsetName" &>/dev/null; then
     # 创建一个ipset
     # type选项中的hash:net对应的是ipv4的网络环境
     # 要创建用于IPv6的IP集，请添加--option = family = inet6选项
