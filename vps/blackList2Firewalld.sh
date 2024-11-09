@@ -74,6 +74,37 @@ function addCrontab() {
   fi
 }
 
+function refreshBlackList() {
+
+  # 确保 ipset 存在
+  if ! ipset list "$ipsetName" &>/dev/null; then
+      echo "ipset '$ipsetName' 不存在，请先创建它。"
+      exit 1
+  fi
+
+  # 更新黑名单
+  echo "更新黑名单 "
+  # 读取文件中的 IP 地址并添加到 ipset
+  while IFS= read -r ip; do
+      # 检查 IP 是否已经在 ipset 中
+      if ! ipset test "$ipsetName" "$ip" &>/dev/null; then
+          # 如果不在，则添加到 ipset
+          ipset add "$ipsetName" "$ip"
+          echo "已添加 IP: $ip"
+      else
+          echo "IP 已存在: $ip"
+      fi
+  done < "$ipBlack"
+  # 使用--add-entries-from-file选项将$ipBlack的内容导入到$ipsetName的ipset空间中，太耗资源，改用ipset
+  # firewall-cmd --permanent --ipset=$ipsetName --add-entries-from-file=$ipBlack
+  # 使用ipset添加
+#  for line in $(cat "$ipBlack"); do
+#    ipset add blacklist $line
+#  done
+  echo "刷新防火墙 "
+  firewall-cmd --reload
+}
+
 function installBlackList() {
   # 如果没有则创建
   hasBlackIpset=$(firewall-cmd --get-ipsets | grep $ipsetName)
@@ -81,22 +112,18 @@ function installBlackList() {
     # 创建一个ipset
     # type选项中的hash:net对应的是ipv4的网络环境
     # 要创建用于IPv6的IP集，请添加--option = family = inet6选项
-    echo -n "创建ipset：$ipsetName 用于黑名单 "
+    echo "创建ipset：$ipsetName 用于黑名单 "
     firewall-cmd --permanent --new-ipset=$ipsetName --type=hash:net
     # 在drop区域中定义一条源规则，将$ipsetName的地址集作为源规则的源IP
-    echo -n "将ipset：$ipsetName 添加到zone:drop "
+    echo "将ipset：$ipsetName 添加到zone:drop "
     firewall-cmd --permanent --zone=drop --add-source=ipset:$ipsetName
     #firewall-cmd --permanent --zone=public --add-rich-rule="rule family='ipv4' source ipset=blacklist drop"
     #firewall-cmd --reload
   fi
   # 统计超过10次登录失败的ip并写入文件
   setBlackList
-  echo -n "更新黑名单 "
-  # 使用--add-entries-from-file选项将$ipBlack的内容导入到$ipsetName的ipset空间中
-  firewall-cmd --permanent --ipset=$ipsetName --add-entries-from-file=$ipBlack
-  echo -n "刷新防火墙 "
-  firewall-cmd --reload
-
+  # 刷新防火墙黑名单
+  refreshBlackList
   # 创建定时任务
   addCrontab
 }
