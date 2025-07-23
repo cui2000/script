@@ -68,6 +68,10 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/install
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installHysteria2.sh)
 ```
+**安装sing-box**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installSingbox.sh)
+```
 **部署bash-tutorial**  
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/deployBashTutorial.sh)
