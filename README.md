@@ -18,6 +18,10 @@ bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/install
 ```
 bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/installNginx.sh)
 ```
+**升级nginx到1.28**  
+```
+bash <(curl -sL https://raw.githubusercontent.com/cui2000/script/dev/vps/updateNginx.sh)
+```
 **自动添加黑名单功能（需要安装并启动了firewalld服务）**  
 ```
 wget -q https://raw.githubusercontent.com/cui2000/script/dev/vps/blackList2Firewalld.sh
